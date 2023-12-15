@@ -14,3 +14,13 @@ jobs:
             spec
           repository: ${{ secrets.SERVER_REPO }}
           token: ${{ secrets.PAT_TOKEN }}
+          
+      - name: Generate code
+        uses: hatamiarash7/openapi-generator@v0.2.0
+        with:
+          generator: kotlin
+          openapi-file: HelloAPI.json
+
+      # Do anything you want with the generated code
+      - name: Do anything
+        run: ls -l kotlin-client
