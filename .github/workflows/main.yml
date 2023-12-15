@@ -17,9 +17,8 @@ jobs:
       - name: Debugging Step 1
         run: pwd
       - name: Debugging Step 2
-        run: cd $GITHUB_WORKSPACE && pwd
-      - name: Debugging Step 3
-        run: cd $GITHUB_WORKSPACE && pwd
+        working-directory: $GITHUB_WORKSPACE
+        run: pwd && ls -l
       # - name: Generate code
       #   uses: hatamiarash7/openapi-generator@v0.2.0
       #   with:
