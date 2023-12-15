@@ -14,14 +14,18 @@ jobs:
             spec
           repository: ${{ secrets.SERVER_REPO }}
           token: ${{ secrets.PAT_TOKEN }}
-      - name: Debugging Step
-        run: cd $GITHUB_WORKSPACE && pwd && ls -l
-      - name: Generate code
-        uses: hatamiarash7/openapi-generator@v0.2.0
-        with:
-          generator: kotlin
-          openapi-file: HelloAPI.json
+      - name: Debugging Step 1
+        run: pwd
+      - name: Debugging Step 2
+        run: cd $GITHUB_WORKSPACE && pwd
+      - name: Debugging Step 3
+        run: cd $GITHUB_WORKSPACE && pwd
+      # - name: Generate code
+      #   uses: hatamiarash7/openapi-generator@v0.2.0
+      #   with:
+      #     generator: kotlin
+      #     openapi-file: HelloAPI.json
 
-      # Do anything you want with the generated code
-      - name: Do anything
-        run: ls -l kotlin-client
+      # # Do anything you want with the generated code
+      # - name: Do anything
+      #   run: ls -l kotlin-client
