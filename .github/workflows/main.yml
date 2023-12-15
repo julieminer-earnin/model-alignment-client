@@ -14,7 +14,8 @@ jobs:
             spec
           repository: ${{ secrets.SERVER_REPO }}
           token: ${{ secrets.PAT_TOKEN }}
-          
+      - name: Debugging Step
+        run: pwd && ls -l
       - name: Generate code
         uses: hatamiarash7/openapi-generator@v0.2.0
         with:
