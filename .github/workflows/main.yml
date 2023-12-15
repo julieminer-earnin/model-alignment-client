@@ -10,5 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.1
         with: 
+          sparse-checkout: |
+            spec
           repository: ${{ secrets.SERVER_REPO }}
           token: ${{ secrets.PAT_TOKEN }}
