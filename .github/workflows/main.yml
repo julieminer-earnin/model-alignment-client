@@ -14,27 +14,13 @@ jobs:
             spec
           repository: ${{ secrets.SERVER_REPO }}
           token: ${{ secrets.PAT_TOKEN }}
-      - name: Debugging Step 1
-        run: |
-         cd $GITHUB_WORKSPACE && pwd
-         ls -l
-         ls -l ./spec
-      # - name: Generate code
-      #   uses: hatamiarash7/openapi-generator@v0.2.0
-      #   with:
-      #     generator: kotlin
-      #     openapi-file: ${{ github.workspace }}/spec/HelloAPI.json
       - name: Swagger Codegen CLI
-      # You may pin to the exact commit or the version.
-      # uses: CapsLock-Studio/swagger-codegen-action@908337d287b51f0a71bef2adb8da5b25497b49e8
         uses: CapsLock-Studio/swagger-codegen-action@74d06d53d1cdb23a7715f487361a39c8885d60f9
         with: 
-        # Swagger language
           language: kotlin
-          # Swagger file
           input: /github/workspace/spec/HelloAPI.json
-          # swagger-codegen-cli action
           action: generate
-      # # Do anything you want with the generated code
-      # - name: Do anything
-      #   run: ls -l kotlin-client
+      - name: Zip
+        uses: TonyBogdanov/zip@1.0
+        with:
+            args: zip -qq -r ./HelloAPI.zip $GITHUB_WORKSPACE
