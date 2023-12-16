@@ -32,7 +32,7 @@ jobs:
         # Swagger language
           language: kotlin
           # Swagger file
-          input: https://github.com/julieminer-earnin/model-alignment-server/blob/main/spec/HelloAPI.json
+          input: /github/workspace/spec/HelloAPI.json
           # swagger-codegen-cli action
           action: generate
       # # Do anything you want with the generated code
