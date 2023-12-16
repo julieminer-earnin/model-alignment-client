@@ -34,7 +34,7 @@ jobs:
           # Swagger file
           input: ${{ github.workspace }}/spec/HelloAPI.json
           # swagger-codegen-cli action
-          action: -Dmodels -Dapis
+          # action: -Dmodels -Dapis
       # # Do anything you want with the generated code
       # - name: Do anything
       #   run: ls -l kotlin-client
