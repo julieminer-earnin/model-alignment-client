@@ -19,11 +19,22 @@ jobs:
          cd $GITHUB_WORKSPACE && pwd
          ls -l
          ls -l ./spec
-      - name: Generate code
-        uses: hatamiarash7/openapi-generator@v0.2.0
-        with:
-          generator: kotlin
-          openapi-file: ${{ github.workspace }}/spec/HelloAPI.json
+      # - name: Generate code
+      #   uses: hatamiarash7/openapi-generator@v0.2.0
+      #   with:
+      #     generator: kotlin
+      #     openapi-file: ${{ github.workspace }}/spec/HelloAPI.json
+      - name: Swagger Codegen CLI
+      # You may pin to the exact commit or the version.
+      # uses: CapsLock-Studio/swagger-codegen-action@908337d287b51f0a71bef2adb8da5b25497b49e8
+        uses: CapsLock-Studio/swagger-codegen-action@v1.2
+        with: 
+        # Swagger language
+          language: kotlin
+          # Swagger file
+          input: ${{ github.workspace }}/spec/HelloAPI.json
+          # swagger-codegen-cli action
+          action: kotlin -Dmodels -Dapis
       # # Do anything you want with the generated code
       # - name: Do anything
       #   run: ls -l kotlin-client
