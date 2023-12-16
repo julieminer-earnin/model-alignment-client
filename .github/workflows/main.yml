@@ -30,7 +30,7 @@ jobs:
         uses: CapsLock-Studio/swagger-codegen-action@74d06d53d1cdb23a7715f487361a39c8885d60f9
         with: 
         # Swagger language
-          language: kotlin-client
+          language: kotlin
           # Swagger file
           input: ${{ github.workspace }}/spec/HelloAPI.json
           # swagger-codegen-cli action
