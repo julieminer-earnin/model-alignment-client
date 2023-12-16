@@ -16,10 +16,9 @@ jobs:
           token: ${{ secrets.PAT_TOKEN }}
       - name: Debugging Step 1
         run: |
-         ls -l $GITHUB_WORKSPACE
-         ls -l ${{ github.workspace }}
-         ls -l ${{ github.workspace }}/spec
          cd $GITHUB_WORKSPACE && pwd
+         ls -l
+         ls -l ./spec
       - name: Generate code
         uses: hatamiarash7/openapi-generator@v0.2.0
         with:
