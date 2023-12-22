@@ -20,6 +20,8 @@ jobs:
           language: kotlin
           input: /github/workspace/spec/HelloAPI.json
           action: generate
+      - name: Debugging
+        run: ls -l $GITHUB_WORKSPACE
       - name: Zip
         uses: TonyBogdanov/zip@1.0
         with:
