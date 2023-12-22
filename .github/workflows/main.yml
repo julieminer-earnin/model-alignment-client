@@ -25,4 +25,4 @@ jobs:
       - name: Zip
         uses: TonyBogdanov/zip@1.0
         with:
-            args: zip -qq -r ./HelloAPI.zip $GITHUB_WORKSPACE
+            args: zip -qq -r ./HelloAPI.zip /github/workspace/
