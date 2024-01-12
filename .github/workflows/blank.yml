@@ -1,0 +1,62 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  temp:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+        - uses: actions/checkout@v3
+          with:
+              fetch-depth: 0
+        - name: "Read JSON"
+          uses: actions/github-script@v6
+          id: check-env
+          with:
+            result-encoding: string
+            script: |
+                //const USERNAME="${{ secrets.UNIFIED_SERVICE_JOB_JENKINS_USERNAME }}"
+                //const JENKINS_URL="${{ secrets.UNIFIED_SERVICE_JOB_URL }}"
+                //const JOB_TOKEN="${{ secrets.UNIFIED_SERVICE_JOB_TOKEN }}" # you create this token when you enable Job>Configure>Build Triggers>Trigger builds remotely
+                //const LOGIN_API_TOKEN="${{ secrets.UNIFIED_SERVICE_JOB_LOGIN_TOKEN }}" #get this value from JENKINS_URL/me/configure 
+        
+                try {
+                    const fs = require('fs');
+                    const { execSync } = require('node:child_process');
+        
+                    const jsonString = fs.readFileSync('./unified_service_config.json');
+                    var specConfig = JSON.parse(jsonString);
+                    
+                    const diffCommand = `git diff HEAD^ HEAD --name-only json`;
+                    const diffOutput = execSync().toString(diffCommand);
+                    const changedFiles = diffOutput.toString().split('\n').filter(Boolean);
+                        
+                    changedFiles.forEach((file) => {
+                        const found = specConfig.unified_specs.find(e => e.service_spec_path === file.path)
+                        if (found) {
+                            const SERVICE_NAME = found.service_name;
+                            const SERVICE_SPEC_PATH = found.service_spec_path;
+                            //curl -L --user $USERNAME:$LOGIN_API_TOKEN "$JENKINS_URL/job/JobName/buildWithParameters?token=$JOB_TOKEN&service_name=$SERVICE_NAME&spec_file=$SERVICE_SPEC_PATH"
+                            echo SERVICE_NAME + " changed!"
+                        }
+                    });
+                } catch(err) {
+                  core.error("Error while reading or parsing unified_service_config.json")
+                  core.setFailed(err)
+                }
